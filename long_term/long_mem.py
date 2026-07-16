@@ -50,3 +50,6 @@ class LongTermMemory(Memory):
         except Exception as e:
             print(f"Failed: {e}")
             return False
+    def close(self):
+        self.cur.close()
+        self.con.close()
