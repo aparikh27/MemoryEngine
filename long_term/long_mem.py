@@ -21,7 +21,18 @@ class LongTermMemory(Memory):
 
 
     def add(self, memory: MemoryItem) -> bool:
-        pass
+        try:
+            self.cur.execute("""
+                INSERT OR REPLACE INTO memories (key, value, timestamp)
+                VALUES (?, ?, ?)
+            """, (memory.key, memory.value, memory.timestamp))
+            self.con.commit()
+            return True
+        except Exception as e:
+            print(f"Failed: {e}")
+            return False
+
+
 
 
     
