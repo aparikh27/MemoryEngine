@@ -31,6 +31,13 @@ class LongTermMemory(Memory):
         except Exception as e:
             print(f"Failed: {e}")
             return False
+        
+    def get(self, key: str) -> MemoryItem | None:
+        item = self.cur.execute("SELECT key, value, timestamp FROM memories WHERE key = ?", (key,)).fetchone()
+        if item:
+            return MemoryItem(key=item[0], value=item[1], timestamp=item[2])
+        return None
+    
 
 
 
