@@ -14,6 +14,10 @@ class LongTermMemory(Memory):
             )
         """)
         self.con.commit()
+    
+    def get_all(self) -> list[MemoryItem]:
+        data = self.cur.execute("SELECT * FROM memories").fetchall()
+        return [MemoryItem(key=item[0], value=item[1], timestamp=item[2]) for item in data]
 
 
     def add(self, memory: MemoryItem) -> bool:
