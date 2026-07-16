@@ -18,9 +18,11 @@ class LongTermMemory(Memory):
     def get_all(self) -> list[MemoryItem]:
         data = self.cur.execute("SELECT * FROM memories").fetchall()
         return [MemoryItem(key=item[0], value=item[1], timestamp=item[2]) for item in data]
-
-
+    
     def add(self, memory: MemoryItem) -> bool:
+        return self.modify(memory)
+
+    def modify(self, memory: MemoryItem) -> bool:
         try:
             self.cur.execute("""
                 INSERT OR REPLACE INTO memories (key, value, timestamp)
@@ -36,10 +38,4 @@ class LongTermMemory(Memory):
         item = self.cur.execute("SELECT key, value, timestamp FROM memories WHERE key = ?", (key,)).fetchone()
         if item:
             return MemoryItem(key=item[0], value=item[1], timestamp=item[2])
-        return None
-    
-
-
-
-
-    
+        return None           
