@@ -2,8 +2,8 @@ from memory import Memory, MemoryItem
 import sqlite3
 
 class LongTermMemory(Memory):
-    def __init__(self):
-        self.con = sqlite3.connect("robot_memory.db")
+    def __init__(self, db_path: str = "robot_memory.db"):
+        self.con = sqlite3.connect(db_path)
         self.cur = self.con.cursor()
         self.cur.execute("""
             CREATE TABLE IF NOT EXISTS memories (
