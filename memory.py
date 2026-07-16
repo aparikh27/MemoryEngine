@@ -1,4 +1,5 @@
-from abc import ABC, abstractmethod, dataclass
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
 
 @dataclass
 class MemoryItem:
@@ -11,10 +12,10 @@ class Memory(ABC):
     def add(self, memory: MemoryItem) -> bool:
         pass
     @abstractmethod
-    def get(self, memory: MemoryItem) -> str:
+    def get(self, key: str) -> str:
         pass
     @abstractmethod
-    def delete(self, memory: MemoryItem) -> bool:
+    def delete(self, key: str) -> bool:
         pass
     @abstractmethod
     def modify(self, memory: MemoryItem) -> bool:

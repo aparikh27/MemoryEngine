@@ -25,10 +25,10 @@ class ShortTermMemory(Memory):
             self.addition_timeline.append(item.key)
             return True
   
-    def remove(self, item: MemoryItem) -> bool:
-        if item.key in self.short_term_memory:
-            del self.short_term_memory[item.key]
-            self.addition_timeline.remove(item.key)
+    def delete(self, key: str) -> bool:
+        if key in self.short_term_memory:
+            del self.short_term_memory[key]
+            self.addition_timeline.remove(key)
             return True
         return False
 
