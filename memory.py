@@ -1,12 +1,21 @@
-from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod, dataclass
+
+@dataclass
+class MemoryItem:
+    key: str
+    value: str
+    timestamp: float
 
 class Memory(ABC):
     @abstractmethod
-    def add(self, key: str, value: str) -> None:
+    def add(self, memory: MemoryItem) -> bool:
         pass
-    def get(self, key: str) -> str:
+    @abstractmethod
+    def get(self, memory: MemoryItem) -> str:
         pass
-    def delete(self, key: str) -> None:
+    @abstractmethod
+    def delete(self, memory: MemoryItem) -> bool:
         pass
-    def modify(self, key: str, value: str) -> None:
+    @abstractmethod
+    def modify(self, memory: MemoryItem) -> bool:
         pass
