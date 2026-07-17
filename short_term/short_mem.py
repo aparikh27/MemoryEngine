@@ -32,7 +32,7 @@ class ShortTermMemory(Memory):
             return True
         return False
 
-    def get(self, key: str) -> MemoryItem:
+    def get(self, key: str) -> MemoryItem | None:
         return self.short_term_memory.get(key)
 
     def modify(self, item: MemoryItem) -> bool:
