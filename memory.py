@@ -12,7 +12,7 @@ class Memory(ABC):
     def add(self, memory: MemoryItem) -> bool:
         pass
     @abstractmethod
-    def get(self, key: str) -> str:
+    def get(self, key: str) -> MemoryItem | None:
         pass
     @abstractmethod
     def delete(self, key: str) -> bool:
