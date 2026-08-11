@@ -5,6 +5,16 @@ class LongTermMemory(Memory):
     def __init__(self, db_path: str = "robot_memory.db"):
         self.con = sqlite3.connect(db_path)
         self.cur = self.con.cursor()
+        # Short-term eviction can generate hundreds of small writes. WAL mode
+        # with NORMAL synchronization avoids a costly full filesystem sync on
+        # every commit while preserving SQLite's transactional guarantees.
+        try:
+            self.cur.execute("PRAGMA journal_mode=WAL")
+            self.cur.execute("PRAGMA synchronous=NORMAL")
+        except sqlite3.OperationalError:
+            # A read-only existing database can still serve reads; leave its
+            # journal mode untouched rather than preventing application import.
+            pass
         self.cur.execute("""
             CREATE TABLE IF NOT EXISTS memories (
                 key TEXT PRIMARY KEY,
